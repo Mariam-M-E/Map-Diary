@@ -56,6 +56,11 @@ main {
 
 
 /* Posts Area */
+
+a.post-link {
+    text-decoration: none;  /* Remove the underline */
+    color: inherit; 
+}
 .posts {
     width: 50%; /* Set to 50% width */
     margin: 0 auto; /* Center the posts */
@@ -80,7 +85,7 @@ main {
 }
 
 .post-title{
-    margin: 10px 0px 20px;
+    margin: 10px 0px;
 }
 .post-title span{
     font-weight: bold;
@@ -111,6 +116,10 @@ main {
     margin: 10px 0px;
 }
 
+.post-txt{
+    margin: 0px 0px 10px;
+}
+
 /* Votes Section */
 .votes {
     display: flex;
@@ -125,10 +134,16 @@ main {
 
 
 /* Comments Section */
-.comments {
+.comments-count > p {
     margin: 0px 5px;
     font-size: 16px;
     color: black;
+}
+.comments {
+    margin: 10px 0px;
+}
+.comment{
+    margin: 20px 0px;
 }
 
 
@@ -163,15 +178,4 @@ main {
     height: calc(100vh - 60px); /* Full height minus nav bar */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     overflow-y: auto; /* Allows sidebar to scroll if content overflows */
-}
-/* Responsive Layout */
-@media (max-width: 768px) {
-    .posts {
-        width: 100%; /* Make posts wider on small screens */
-    }
-
-    .left-sidebar,
-    .right-sidebar {
-        display: none; /* Hide sidebars on smaller screens */
-    }
 }
