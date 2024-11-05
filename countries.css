@@ -1,0 +1,128 @@
+/*general styling*/
+div{
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+html, body {
+    height: 100%;  /* Allow the full height of the viewport */
+    margin: 0;     /* Remove default margin */
+}
+
+/* Header styles */
+.banner {
+    background-color: #4b4b4b;
+    color: white;
+    text-align: center;
+    font-size: 50px;
+    height: 150px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/*styles for the 2nd header or like page title*/
+.country-header{
+    margin-top: 10px;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+/*styles for the left bar*/
+.container {
+    display: flex; 
+    min-height: 100vh;
+}
+
+
+
+.content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 250px;
+    background-color: #b9b8b8;
+    padding: 20px;
+    font-size: 22px;
+    min-height: 100vh;
+}
+
+
+.content-title {
+    font-weight: bold;
+    color: black;
+    margin-top: 20px;
+}
+
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+
+.sub {
+    margin-top: 20px;
+    margin-left: 10px;
+}
+
+/*all styles for posts adn the rest of the page*/
+.main {
+    flex: 1; /*i forgot how flex work*/
+    min-height: 100vh;
+    background-color: rgb(221, 221, 221);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+}
+
+/*post styling go here*/
+.post {
+    width: 80%; 
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+}
+.pfp{
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+}
+.post-title{
+    font-weight: bold;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.post-image {
+    width: 500px; 
+    height: auto; 
+    margin-top: 15px;
+    overflow: hidden; 
+}
+
+
+.post-image img {
+    width: 500px; 
+    height: auto; 
+    border-radius: 10px; 
+}
+.comments{
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    margin-right: 10px;
+}
+.btn{
+    border-radius: 5px;
+    background-color: rgb(74, 74, 112);
+    font-size: 20px;
+
+}
+.more-comments{
+    margin-top: 20px;
+    font-weight: bold;
+
+}
