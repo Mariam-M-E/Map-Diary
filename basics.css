@@ -4,6 +4,10 @@ body {
     font-family: Arial, sans-serif;
 }
 
+
+
+
+
 /* Fixed Navigation Bar */
 header {
     position: fixed;
@@ -14,6 +18,33 @@ header {
     color: white;
     padding: 10px 0;
     z-index: 1000;
+}
+menu {
+    position: relative; /* Necessary for dropdown positioning */
+}
+
+.dropdown-menu {
+    display: none; /* Hidden by default */
+    position: absolute; /* Position it below the menu item */
+    background-color: #333; /* Background color for dropdown */
+    color: white; /* Text color */
+    padding: 10px; /* Padding for dropdown items */
+    z-index: 1000; /* Ensure it appears above other content */
+}
+
+.menu:hover .dropdown-menu {
+    display: block; /* Show dropdown on hover */
+}
+
+.dropdown-menu a {
+    color: white; /* Link color */
+    text-decoration: none; /* Remove underline */
+    display: block; /* Make links block-level */
+    padding: 5px 10px; /* Padding around links */
+}
+
+.dropdown-menu a:hover {
+    background-color: #444; /* Highlight on hover */
 }
 h1 {
     padding: 0px;

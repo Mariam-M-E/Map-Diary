@@ -3,6 +3,97 @@ body {
     margin-top: 20px;
 }
 
+
+
+/* General Body Styles */
+body {
+    background: #f5f5f5;
+    margin-top: 20px;
+}
+
+/* Header Styles */
+/* General Body Styles */
+body {
+    background: #f5f5f5;
+    margin-top: 20px;
+}
+
+/* Header Styles */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #333;  /* Dark gray for header */
+    color: white;
+    padding: 10px 0;
+    z-index: 1000;
+}
+
+h1 {
+    padding: 0px;
+    margin: 5px;
+}
+
+/* Dropdown Menu Styles */
+.menu {
+    position: relative; /* Necessary for dropdown positioning */
+}
+
+.dropdown-menu {
+    display: none; /* Hidden by default */
+    position: absolute; /* Position it below the menu item */
+    background-color: #333; /* Dark gray to match header */
+    color: white; /* White text color */
+    padding: 10px; /* Padding for dropdown items */
+    z-index: 1000; /* Ensure it appears above other content */
+    top: 100%; /* Position it directly below the menu item */
+    left: 0;
+    width: max-content; /* Adjust width to content */
+}
+
+.menu:hover .dropdown-menu {
+    display: block; /* Show dropdown on hover */
+    background-color: #333;
+}
+
+.dropdown-menu a {
+    color: rgb(255, 255, 255); 
+    text-decoration: none; 
+    display: block; 
+    padding: 5px 10px; 
+}
+
+.dropdown-menu a:hover {
+    background-color: #222; /* Darker background on hover (matching header) */
+}
+
+/* Navbar Styles */
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: left;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+
+
+
+
+
+
+
 .ui-w-80 {
     width : 80px !important;
     height: auto;

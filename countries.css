@@ -10,16 +10,86 @@ html, body {
 
 /* Header styles */
 .banner {
-    background-color: #4b4b4b;
+    background-color: #4b4b4b; /* Dark gray */
     color: white;
     text-align: center;
     font-size: 50px;
-    height: 150px;
+    height: 150px; /* Full height for banner */
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
 }
+
+nav.thing {
+    font-size: 30px;
+    font-weight: bold;
+    background-color: #4b4b4b; /* Same background as banner */
+    color: white;
+    height: 50px; /* 1/3 of the height of the banner */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
+/* Navigation List Styling */
+nav.thing ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+nav.thing ul li {
+    margin: 0 15px;
+    position: relative; /* Necessary for dropdown positioning */
+}
+
+nav.thing ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+/* Dropdown Menu Styling */
+.menu {
+    position: relative;
+}
+
+.dropdown-menu {
+    display: none; /* Hidden by default */
+    position: absolute;
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    z-index: 1000;
+}
+
+.menu:hover .dropdown-menu {
+    display: block; /* Display on hover */
+}
+
+.dropdown-menu a {
+    color: white;
+    text-decoration: none;
+    display: block;
+    padding: 5px 10px;
+}
+
+.dropdown-menu a:hover {
+    background-color: #444;
+}
+
+
+
+
+
+
+
+
 
 /*styles for the 2nd header or like page title*/
 .country-header{
