@@ -58,7 +58,7 @@
     display: flex;
     align-items: center;      
     justify-content: center;
-    margin: 10px;
+    margin-right: 10px;
     border-radius: 5px;
     text-align: center;
     height: 50px;
@@ -71,7 +71,7 @@
 
 .main{
     float:center;
-    width:80%;
+    width:100%;
     border: 1px solid  #dedede;
 }
 
@@ -82,6 +82,7 @@
 }
 
 footer {
+    margin: 25px;
     height: 40;
     width: 100%; 
     border-top: 1px solid #dedede;
@@ -102,7 +103,7 @@ footer {
 
 /* Links in the footer */
 footer a {
-    color: #ffffff; /* Set link color */
+    color: #000000; /* Set link color */
     text-decoration: none; /* Remove underline from links */
     margin: 0 10px; /* Space between links */
 }
