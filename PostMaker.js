@@ -7,9 +7,23 @@ function PostCreator() {
 }
 
 PostCreator.prototype.init = function() {
+    this.createToggleButton();
     this.createPostForm();
     this.setupEventListeners();
     this.loadExistingPosts();
+};
+
+PostCreator.prototype.createToggleButton = function() {
+    var toggleButton = document.getElementById('togglePostForm');
+    toggleButton.addEventListener('click', () => {
+        this.togglePostForm();
+    });
+};
+
+PostCreator.prototype.togglePostForm = function() {
+    if (this.postForm) {
+        this.postForm.style.display = this.postForm.style.display === 'none' ? 'block' : 'none';
+    }
 };
 
 PostCreator.prototype.createPostForm = function() {
@@ -83,6 +97,8 @@ PostCreator.prototype.createNewPost = function() {
         document.getElementById('postTitle').value = '';
         document.getElementById('postDescription').value = '';
         document.getElementById('postImage').value = '';
+
+        self.postForm.style.display = 'none';
     };
 
     if (imageFile) {
