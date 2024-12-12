@@ -3,188 +3,184 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Map Diary - Welcome</title>
-    
-    <!-- Embedded CSS -->
+    <title>Map Diary - Discover Your Next Adventure</title>
     <style>
-        /* Prevent scrolling */
+        /* Reset margin and padding for all elements */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Full-screen background setup */
         body {
-            overflow: hidden; /* Hide overflow to prevent scrollbar */
-        }
-
-        /* Style for the body of the intro page */
-        .intro {
-            background-image: url("https://i.pinimg.com/originals/df/3a/64/df3a64cf039029fc010329da5dcf87c8.gif"); /* Background GIF */
-            background-repeat: no-repeat; /* Prevent the background from repeating */
-            background-size: cover; /* Ensure the background covers the entire viewport */
-            background-position: center; /* Center the background image */
             display: flex;
-            justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0; /* Remove default margin */
-            font-family: Arial, sans-serif;            
-        }
-
-        /* Zoom-in animation for the welcome container */
-        @keyframes zoomIn {
-            0% {
-                transform: scale(0.9); /* Start slightly smaller */
-                opacity: 0; /* Start invisible */
-            }
-            100% {
-                transform: scale(1); /* Final size */
-                opacity: 1; /* Fully visible */
-            }
-        }
-
-        /* Animation for the plane */
-        @keyframes flyAcross {
-            0% {
-                transform: translateX(-800%); /* Start off-screen left */
-            }
-            100% {
-                transform: translateX(1200%); /* End off-screen right */
-            }
-        }
-
-        /* Style for the container with the white background */
-        .welcome-container {
-            background-color: white; /* White background */
-            padding: 18px; /* Adjust for more space */
-            border-radius: 10px; /* Slightly larger radius for smoother corners */
-            box-shadow: 0 4px 30px rgba(114, 179, 244, 0.1); /* Softer, more subtle shadow */
-            max-width: 700px;
-            text-align: center;
-            position: relative; /* For overlay positioning */
-            color: white; /* Text color for contrast */
-            margin-top: 50px; /* Adjust the top margin to move it up */
-            animation: zoomIn 2s ease-out; /* Apply the zoom-in animation */
-        }
-
-        /* Style for the plane image */
-        .plane {
-            position: absolute; /* Position it absolutely within the container */
-            top: -60%; /* Position 300 pixels above the container */
-            left: 0; /* Start from the left */
-            animation: flyAcross 6s linear infinite; /* Fly across the screen in 6 seconds */
-            width: 120px;
-            height: auto;
-        }
-
-        /* Style for the main heading */
-        .welcome-container h1 {
-            font-size: 2.5em;
-            color: #007ACC; /* Darker text color */
-            margin-bottom: 20px;
-        }
-
-        /* Hover effect for the heading */
-        .welcome-container h1:hover {
-            color: #007ACC;
-            transform: scale(1.05);
-            transition: transform 0.3s ease, color 0.3s ease;
-        }
-
-        /* Style for the paragraph text */
-        .welcome-container p {
-            font-size: 1.2em;
-            margin-bottom: 30px;
-            color: #666; /* Lighter text color */
-        }
-
-        /* Style for the Start Now button */
-        .start-button {
-            font-size: 1.5em;
-            padding: 10px 30px;
-            background-color: #1E90FF;
+            justify-content: center;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
             color: #fff;
+            overflow: hidden;
+            background-image: url('https://i.pinimg.com/originals/df/3a/64/df3a64cf039029fc010329da5dcf87c8.gif');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+        }
+
+        /* Layered dark overlay for text readability */
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* Main content styling */
+        .content {
+            max-width: 700px;
+            padding: 20px;
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
+            animation: fadeInUp 1.5s ease;
+        }
+
+        /* Fly-in animation for the text */
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Title styling */
+        .content h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        /* Introduction text */
+        .content p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            color: #f0f0f0;
+        }
+
+        /* Start button styling */
+        .start-button {
+            display: inline-block;
+            font-size: 1.2rem;
+            padding: 12px 24px;
+            color: #fff;
+            background-color: #1E90FF;
+            border-radius: 30px;
             text-decoration: none;
-            border-radius: 5px;
             transition: background-color 0.3s ease;
         }
 
-        /* Hover effect for the Start Now button */
+        /* Button hover effect */
         .start-button:hover {
             background-color: #007ACC;
         }
 
-        /* Footer styles */
+        /* Plane image styling and animation */
+        .plane {
+            position: absolute;
+            top: 10%;
+            left: -100px;
+            width: 80px;
+            height: auto;
+            animation: flyAcross 10s linear infinite;
+        }
+
+        /* Plane animation across screen */
+        @keyframes flyAcross {
+            0% { transform: translateX(-100px); }
+            100% { transform: translateX(110vw); }
+        }
+
+        /* Footer with social media links */
         footer {
-            position: fixed; /* Keep the footer at the bottom */
-            bottom: 0;
-            width: 100%; /* Stretch across the full width */
-            color: white; /* White text color */
-            padding: 20px 0; /* Spacing above and below the footer content */
-            text-align: center; /* Center the text */
-            display: flex; /* Flexbox to align sections horizontally */
-            justify-content: space-around; /* Space the sections evenly */
+            position: absolute;
+            bottom: 10px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            font-size: 0.9rem;
+            color: #ddd;
         }
 
-        /* Styling for the Socials section */
-        .Socials {
-            margin: 0; /* Remove any default margin */
-            padding: 1px; /* Add some padding for spacing */
-        }
-
-        /* Links in the footer */
         footer a {
-            color: #ffffff; /* Set link color */
-            text-decoration: none; /* Remove underline from links */
-            margin: 0 10px; /* Space between links */
-        }
-
-        /* Footer headings */
-        footer h3 {
-            margin: 0;
-            padding-bottom: 10px;
+            color: #ffffff;
+            text-decoration: none;
+            transition: color 0.3s ease;
         }
 
         footer a:hover {
-            text-decoration: underline;
+            color: #1E90FF;
         }
 
-        /* Styling for the social icons */
-        .social-icon {
-            width: 15px; /* Width of the icon */
-            height: auto; /* Maintain aspect ratio */
-            margin-left: 5px; /* Space between the text and the icon */
-            vertical-align: middle; /* Align the icon vertically with the text */
+        /* Sign-in and Sign-up button container */
+        .auth-buttons {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 20px;
+        }
+
+        /* Styling for Sign-in and Sign-up buttons */
+        .auth-buttons a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        /* Hover effect for auth links */
+        .auth-buttons a:hover {
+            color: #1E90FF;
         }
     </style>
 </head>
-
-
-
-
-<body class="intro">
-    <div class="welcome-container">
-        <img src="https://clipart-library.com/images/yTkAE988c.png" class="plane" alt="plane???">
-        <h1>Welcome to <em>Map Diary</em></h1>
-        <p>Explore the world in a new way. Start your journey now!</p>
-        <a href="UAE.html" class="start-button">Start Now</a>
+<body>
+    <!-- Sign-in and Sign-up buttons -->
+    <div class="auth-buttons">
+        <a href="Profile.html">Sign In</a>
+        <a href="Profile.html">Sign Up</a>
     </div>
 
-    <footer>
-        <div class="Socials">
-            <h3>Socials</h3>
-            <a href="">
-                Instagram
-                <img src="https://w7.pngwing.com/pngs/877/705/png-transparent-instagram-photo-picture-social-brands-and-logos-icon.png" alt="Instagram" class="social-icon" width="15"> <!-- Instagram Icon -->
-            </a>
-            <a href="">
-                Twitter
-                <img src="https://img.freepik.com/premium-vector/new-twitter-logo-x-2023-twitter-x-logo-official-vector-download_691560-10797.jpg" alt="Twitter" class="social-icon" width="15" > <!-- Twitter Icon -->
-            </a>
-            <a href="">
-                LinkedIn
-                <img src="https://www.citypng.com/public/uploads/preview/hd-linkedin-square-black-icon-transparent-background-7017516949739946gsykkwdmd.png" alt="LinkedIn" class="social-icon" width="15"> <!-- LinkedIn Icon -->
-            </a>
-            <a href="">
-                Facebook
-                <img src="https://www.citypng.com/public/uploads/preview/round-black-facebook-fb-logo-icon-sign-701751695134781upkxjlqwck.png" alt="Facebook" class="social-icon" width="15"> <!-- Facebook Icon -->
-            </a>
+    <!-- Overlay for contrast -->
+    <div class="overlay">
+        <div class="content">
+            <h1>Welcome to Map Diary</h1>
+            <p>Explore and share travel experiences from around the world. Dive into curated stories and cultural insights, and contribute your own journey to inspire others.</p>
+            <a href="index.html" class="start-button">Start Exploring</a>
         </div>
+    </div>
+
+    <!-- Animated plane -->
+    <img src="https://clipart-library.com/images/yTkAE988c.png" class="plane" alt="Animated plane">
+
+    <!-- Footer for social links -->
+    <footer>
+        <a href="https://instagram.com" target="_blank">Instagram</a>
+        <a href="https://twitter.com" target="_blank">Twitter</a>
+        <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+        <a href="https://facebook.com" target="_blank">Facebook</a>
     </footer>
 </body>
 </html>

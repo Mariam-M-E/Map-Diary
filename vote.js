@@ -39,17 +39,21 @@ PostManager.prototype.createPostForm = function() {
     }
 
     const formHTML = `
-        <div class="post-form" style="width: 80%; background-color: white; padding: 20px; border-radius: 10px; margin-top: 20px;">
-            <h3>Create New Post</h3>
-            <input type="text" id="postTitle" placeholder="Enter title" style="width: 100%; margin-bottom: 10px; padding: 5px;">
-            <textarea id="postDescription" placeholder="Enter description" style="width: 100%; height: 100px; margin-bottom: 10px; padding: 5px;"></textarea>
-            <input type="file" id="postImage" accept="image/*" style="margin-bottom: 10px;">
-            <button id="submitPost" style="background-color: rgb(74, 74, 112); color: white; padding: 10px; border: none; border-radius: 5px;">Submit Post</button>
+        <div class="post post-form">
+            <h3 style="font-weight: bold; font-size: 1.25rem; margin-bottom: 1rem;">Create New Post</h3>
+            <input type="text" id="postTitle" placeholder="Enter title" 
+                style="width: 100%; margin-bottom: 10px; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem;">
+            <textarea id="postDescription" placeholder="Enter description" 
+                style="width: 100%; height: 100px; margin-bottom: 10px; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem;"></textarea>
+            <input type="file" id="postImage" accept="image/*" 
+                style="margin-bottom: 10px; font-size: 1rem;">
+            <button id="submitPost" class="btn">Submit Post</button>
         </div>
     `;
 
     this.mainBox.insertAdjacentHTML('afterbegin', formHTML);
 };
+
 
 PostManager.prototype.setupEventListeners = function() {
     this.mainBox.addEventListener('click', (event) => {
