@@ -8,6 +8,12 @@ function PostManager() {
     this.init();
 }
 
+function getLocationKey() {
+    const currentPage = window.location.pathname.split('/').pop().replace('.html', '');
+    return currentPage;
+}
+
+
 PostManager.prototype.init = function() {
     this.createToggleButton();
     this.setupEventListeners();
@@ -15,13 +21,26 @@ PostManager.prototype.init = function() {
 };
 
 PostManager.prototype.createToggleButton = function() {
-    const toggleButton = document.getElementById('togglePostForm');
-    if (toggleButton) {
-        toggleButton.addEventListener('click', () => {
+    const toggleButton = document.createElement('button');
+    toggleButton.innerText = "Toggle View";
+    toggleButton.addEventListener('click', () => this.toggleView());
+    document.body.appendChild(toggleButton);
+};
+
+PostManager.prototype.createToggleButton = function() {
+    const toggleButton = document.createElement('button');
+    toggleButton.innerText = "Toggle View";
+    toggleButton.addEventListener('click', () => this.toggleView());
+    document.body.appendChild(toggleButton);
+
+    const togglePostFormButton = document.getElementById('togglePostForm');
+    if (togglePostFormButton) {
+        togglePostFormButton.addEventListener('click', () => {
             this.togglePostForm();
         });
     }
 };
+
 
 PostManager.prototype.togglePostForm = function() {
     let postForm = document.querySelector('.post-form');
@@ -55,38 +74,24 @@ PostManager.prototype.createPostForm = function() {
 };
 
 PostManager.prototype.setupEventListeners = function() {
-    this.mainBox.addEventListener('click', (event) => {
-        const target = event.target;
-
-        // Handle post submission
-        if (target.id === 'submitPost') {
-            this.createNewPost();
-            return;
-        }
-
-        // Handle voting
-        const upvoteBtn = target.closest('.upvote-btn');
-        const downvoteBtn = target.closest('.downvote-btn');
-
-        if (upvoteBtn) {
-            const postId = upvoteBtn.closest('.post').dataset.postId;
+    this.mainBox.addEventListener('click', (e) => {
+        if (e.target.classList.contains('upvote-btn')) {
+            const postId = e.target.closest('.post').dataset.postId;
             this.handleVote(postId, 'upvote');
-        } else if (downvoteBtn) {
-            const postId = downvoteBtn.closest('.post').dataset.postId;
+        } else if (e.target.classList.contains('downvote-btn')) {
+            const postId = e.target.closest('.post').dataset.postId;
             this.handleVote(postId, 'downvote');
+        } else if (e.target.id === 'submitPost') {
+            this.createNewPost();
         }
     });
 };
+
 
 PostManager.prototype.getAllPosts = function() {
     return JSON.parse(localStorage.getItem('posts') || '[]');
 };
 
-PostManager.prototype.savePost = function(post) {
-    const posts = this.getAllPosts();
-    posts.push(post);
-    localStorage.setItem('posts', JSON.stringify(posts));
-};
 
 PostManager.prototype.createNewPost = function() {
     const title = document.getElementById('postTitle').value;
@@ -111,7 +116,7 @@ PostManager.prototype.createNewPost = function() {
             comments: []
         };
 
-        this.savePost(post);
+        this.savePostsByCountry(post);
         this.loadAndRenderPosts();
 
         document.getElementById('postTitle').value = '';
@@ -129,158 +134,119 @@ PostManager.prototype.createNewPost = function() {
     }
 };
 
-PostManager.prototype.loadAndRenderPosts = function() {
-    const posts = this.getAllPosts();
-    const pageSpecificPosts = posts
-        .filter(post => post.page === this.currentPage)
-        .sort((a, b) => b.votes - a.votes);
-
-    // Clear existing posts in the main box
-    this.mainBox.innerHTML = '';
-
-    // Render each post individually
-    pageSpecificPosts.forEach(post => this.renderPost(post));
-};
-
-
-PostManager.prototype.renderPost = function(post) {
-    const postHTML = `
-    <div class="post" data-post-id="${post.id}">
-        <div class="post-header">
-            <img src="https://wallpapers.com/images/hd/basic-default-pfp-pxi77qv5o0zuz8j3.jpg" class="pfp" alt="Profile picture">
-            <div class="post-title">${post.title}</div>
-        </div>
-        <div class="post-content">${post.description}</div>
-        <div class="post-image">
-            <img src="${post.image}" alt="Post image">
-        </div>
-        <div class="post-footer">
-            <div class="votes">
-                <button class="btn upvote-btn" aria-label="Upvote">↑</button>
-                <div class="vote-count">${post.votes}</div>
-                <button class="btn downvote-btn" aria-label="Downvote">↓</button>
-            </div>
-        <div class="comments-section">
-            <div class="comments-container"></div>
-            <div class="comment-input-container">
-                <textarea class="comment-input" placeholder="Add a comment..."></textarea>
-                <button class="add-comment-btn">Post Comment</button>
-            </div>
-        </div>
-
-        </div>
-    </div>
-    `;
-
-    this.mainBox.insertAdjacentHTML('beforeend', postHTML);
-    this.loadPostComments(post.id);
-};
-
-// Function to load comments for a specific post
-PostManager.prototype.loadPostComments = function(postId) {
-    const post = this.getPostById(postId);
-    const commentsContainer = document.querySelector(`[data-post-id="${postId}"] .comments-container`);
-
-    if (post.comments && post.comments.length > 0) {
-        post.comments.forEach(comment => {
-            this.displayComment(commentsContainer, comment);
-        });
-    }
-
-    this.updateCommentVisibility(commentsContainer);
-};
-
-PostManager.prototype.getPostById = function(postId) {
-    const posts = JSON.parse(localStorage.getItem('posts') || '[]');
-    return posts.find(post => post.id === postId);
-};
-
-// Function to display comments
-// Function to display comments with profile picture
-PostManager.prototype.displayComment = function(container, comment) {
-    const commentText = comment.text || '[Unknown Comment]'; // Comment text
-    const pfpUrl = comment.pfp || 'default-pfp.png'; // Profile picture URL (fallback to default)
-
-    var commentHTML = `
-        <div class="text-comments" data-comment-id="${comment.id}">
-            <img src="https://i.pinimg.com/236x/dd/25/48/dd2548cfcdfff672100aa6cba83d99ea.jpg"m;, class="pfp">
-            <div>${comment.text}</div>
-        </div>
-    `;
-    container.insertAdjacentHTML('beforeend', commentHTML);
-};
-
-
-// Function to update visibility of comments
-PostManager.prototype.updateCommentVisibility = function(container) {
-    const comments = container.querySelectorAll('.comment');
-    comments.forEach(comment => {
-        if (comment.textContent.trim() === '') {
-            comment.style.display = 'none';
-        } else {
-            comment.style.display = 'block';
+PostManager.prototype.setupEventListeners = function() {
+    this.mainBox.addEventListener('click', (e) => {
+        if (e.target.classList.contains('upvote-btn')) {
+            const postId = e.target.closest('.post').dataset.postId;
+            this.handleVote(postId, 'upvote');
+        } else if (e.target.classList.contains('downvote-btn')) {
+            const postId = e.target.closest('.post').dataset.postId;
+            this.handleVote(postId, 'downvote');
         }
     });
 };
 
-// Vote handling
+PostManager.prototype.loadAndRenderPosts = function() {
+    fetchPosts(this.currentPage)
+        .then(posts => {
+            renderPosts(posts);
+        });
+};
+
 PostManager.prototype.handleVote = function(postId, voteType) {
-    const votesData = JSON.parse(localStorage.getItem('votes') || '{}');
+    const country = getLocationKey();
+    const votesKey = `votes_${country}`; // Country-specific votes storage
+    const votesData = JSON.parse(localStorage.getItem(votesKey) || '{}');
     const currentVote = votesData[postId];
-    const postElement = document.querySelector(`[data-post-id="${postId}"]`);
 
-    if (currentVote === voteType) {
-        this.removeVote(postId, voteType);
-        votesData[postId] = null; // Explicitly set to null to indicate no vote
-    } else {
-        if (currentVote) {
-            this.removeVote(postId, currentVote);
-        }
-        this.updateVotes(postId, voteType === 'upvote' ? 1 : -1);
+    const posts = this.loadPostsByCountry();
+    const postToUpdate = posts.find(post => post.id === postId);
+
+    if (!postToUpdate) {
+        console.error('Post not found');
+        return;
+    }
+
+    // Remove previous vote if exists
+    if (currentVote) {
+        postToUpdate.votes -= (currentVote === 'upvote') ? 1 : -1;
+    }
+
+    // Apply new vote
+    if (currentVote !== voteType) {
+        postToUpdate.votes += (voteType === 'upvote') ? 1 : -1;
         votesData[postId] = voteType;
+    } else {
+        // If voting the same way, effectively remove the vote
+        votesData[postId] = null;
     }
 
-    localStorage.setItem('votes', JSON.stringify(votesData));
-    this.updateVoteButtonStyles(postElement);
+    // Save updated votes and posts
+    localStorage.setItem(votesKey, JSON.stringify(votesData));
+    this.savePostsByCountry(posts);
+
+    // Re-render to update UI
+    this.loadAndRenderPosts();
 };
 
-// Updating vote count
-PostManager.prototype.updateVotes = function(postId, voteChange) {
-    const posts = this.getAllPosts();
-    const post = posts.find(post => post.id === postId);
-
-    if (post) {
-        post.votes += voteChange; // Update the vote count
-        localStorage.setItem('posts', JSON.stringify(posts));
-        this.loadAndRenderPosts(); // Re-render posts
-    }
-};
-
-// Removing votes
-PostManager.prototype.removeVote = function(postId, voteType) {
-    const votesData = JSON.parse(localStorage.getItem('votes') || '{}');
-    votesData[postId] = null;
-    localStorage.setItem('votes', JSON.stringify(votesData));
-    this.loadAndRenderPosts(); // Re-render posts after vote removal
-};
-
-// Update vote button styles
 PostManager.prototype.updateVoteButtonStyles = function(postElement) {
+    if (!postElement) return;
+
     const upvoteButton = postElement.querySelector('.upvote-btn');
     const downvoteButton = postElement.querySelector('.downvote-btn');
-    const votes = postElement.querySelector('.vote-count').textContent;
+    const voteCountElement = postElement.querySelector('.vote-count');
+    
+    if (!upvoteButton || !downvoteButton || !voteCountElement) return;
 
+    const postId = postElement.dataset.postId;
+    const country = getLocationKey();
+    const votesKey = `votes_${country}`;
+    const votesData = JSON.parse(localStorage.getItem(votesKey) || '{}');
+    const currentVote = votesData[postId];
+
+    // Remove active classes
     upvoteButton.classList.remove('active');
     downvoteButton.classList.remove('active');
 
-    if (votes > 0) {
+    // Add active class based on current vote
+    if (currentVote === 'upvote') {
         upvoteButton.classList.add('active');
-    } else if (votes < 0) {
+    } else if (currentVote === 'downvote') {
         downvoteButton.classList.add('active');
     }
 };
 
-// Initialize the PostManager when the page loads
-document.addEventListener('DOMContentLoaded', () => {
+// Modify setupEventListeners to include buttons
+PostManager.prototype.setupEventListeners = function() {
+    this.mainBox.addEventListener('click', (e) => {
+        if (e.target.classList.contains('upvote-btn')) {
+            const postId = e.target.closest('.post').dataset.postId;
+            this.handleVote(postId, 'upvote');
+        } else if (e.target.classList.contains('downvote-btn')) {
+            const postId = e.target.closest('.post').dataset.postId;
+            this.handleVote(postId, 'downvote');
+        } else if (e.target.id === 'submitPost') {
+            this.createNewPost();
+        }
+    });
+};
+
+PostManager.prototype.loadPostsByCountry = function() {
+    const country = getLocationKey(); // Dynamically define based on context
+    return JSON.parse(localStorage.getItem(country) || '[]');
+};
+
+PostManager.prototype.savePostsByCountry = function(posts) {
+    const country = getLocationKey(); // Dynamically define based on context
+    localStorage.setItem(country, JSON.stringify(posts));
+};
+
+// Fetch posts from localStorage
+function fetchPosts(currentPage) {
+    const posts = JSON.parse(localStorage.getItem(currentPage) || '[]');
+    return Promise.resolve(posts); // Return the posts as a resolved promise
+}
+
+document.addEventListener('DOMContentLoaded', function() {
     new PostManager();
 });
