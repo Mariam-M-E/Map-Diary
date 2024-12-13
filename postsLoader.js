@@ -121,7 +121,7 @@ CommentHandler.prototype.handleAddComment = function(event, button) {
     var postId = postElement.dataset.postId;
 
     if (!commentText) {
-        alert('Please enter a valid comment');
+        //alert('Please enter a valid comment');
         return;
     }
 
