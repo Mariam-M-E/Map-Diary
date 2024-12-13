@@ -2,19 +2,19 @@
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: center; /* Center-align all content horizontally */
+    justify-content: center; 
     border-bottom: 1px solid #dedede;
     padding: 15px 20px;
     background-color: #ffffff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    position: relative; /* For absolute positioning of logo */
+    position: relative;
 }
 
 .logo {
     display: flex;
     align-items: center;
     font-size: 1.25rem;
-    position: absolute; /* Position the logo to the left */
+    position: absolute; 
     left: 20px;
 }
 
@@ -24,7 +24,6 @@
     margin-right: 15px;
     border-radius: 50%;
     object-fit: cover;
-    transition: transform 0.3s ease;
 }
 
 .search-container {
@@ -54,6 +53,10 @@
 
 /*  left side bar */
 
+.sidebar-left nav li:hover{
+    background-color:  #dedede;
+}
+
 .sidebar-left{
     float:left;
     width: 15%;
@@ -72,25 +75,15 @@
     align-items: center;      
     justify-content: center;
     margin-right: 10px;
-    text-decoration: none;
     border-radius: 5px;
     text-align: center;
+
     height: 50px;
-    
-    /* Modern touch */
-    transition: all 0.2s ease;
-    cursor: pointer;
-    font-weight: 500;
-    position: relative;
-    overflow: hidden;
 }
 
-
-.sidebar-left nav li:hover{
-    background-color:  #dedede;
+.sidebar-left nav li span {
     text-decoration: none;
 }
-
 .main{
     float:center;
     width:100%;

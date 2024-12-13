@@ -150,13 +150,79 @@ PostManager.prototype.renderPost = function(post) {
                 <img src="${post.image}" alt="Post image">
             </div>
             <div class="comments">
-                <button class="btn upvote-btn">   ↑   </button>
+                <button class="btn upvote-btn">↑</button>
                 <div class="votes">${post.votes}</div>
-                <button class="btn downvote-btn">   ↓   </button>
+                <button class="btn downvote-btn">↓</button>
             </div>
         </div>
     `;
     this.mainBox.insertAdjacentHTML('beforeend', postHTML);
+};
+
+PostManager.prototype.setupEventListeners = function() {
+    this.mainBox.addEventListener('click', (event) => {
+        const target = event.target;
+
+        // Handle post submission
+        if (target.id === 'submitPost') {
+            this.createNewPost();
+            return;
+        }
+
+        // Handle voting
+        const upvoteBtn = target.closest('.upvote-btn');
+        const downvoteBtn = target.closest('.downvote-btn');
+
+        if (upvoteBtn) {
+            const postId = upvoteBtn.closest('.post').dataset.postId;
+            this.handleVote(postId, 'upvote');
+        } else if (downvoteBtn) {
+            const postId = downvoteBtn.closest('.post').dataset.postId;
+            this.handleVote(postId, 'downvote');
+        }
+    });
+};
+
+PostManager.prototype.updateVoteButtonStyles = function(postElement) {
+    const upvoteButton = postElement.querySelector('.upvote-btn');
+    const downvoteButton = postElement.querySelector('.downvote-btn');
+
+    // Get the current vote from localStorage
+    const votesData = JSON.parse(localStorage.getItem('votes') || '{}');
+    const currentVote = votesData[postElement.dataset.postId];
+
+    // Remove both voted and unvoted classes from both buttons
+    upvoteButton.classList.remove('voted', 'unvoted');
+    downvoteButton.classList.remove('voted', 'unvoted');
+
+    // Add appropriate classes based on the current vote
+    upvoteButton.classList.add(currentVote === 'upvote' ? 'voted' : 'unvoted');
+    downvoteButton.classList.add(currentVote === 'downvote' ? 'voted' : 'unvoted');
+};
+
+PostManager.prototype.handleVote = function(postId, voteType) {
+    const votesData = JSON.parse(localStorage.getItem('votes') || '{}');
+    const currentVote = votesData[postId];  
+    const postElement = document.querySelector(`[data-post-id="${postId}"]`);
+
+    // If the user clicks on the same type of vote, remove their vote
+    if (currentVote === voteType) {
+        this.removeVote(postId, voteType);
+        votesData[postId] = null; // Explicitly set to null to indicate no vote
+    } else {
+        // If the user switches their vote or votes for the first time
+        if (currentVote) {
+            // Remove the previous vote first
+            this.removeVote(postId, currentVote);
+        }
+
+        // Apply the new vote
+        this.updateVotes(postId, voteType === 'upvote' ? 1 : -1);
+        votesData[postId] = voteType;
+    }
+
+    localStorage.setItem('votes', JSON.stringify(votesData));
+    this.updateVoteButtonStyles(postElement);
 };
 
 PostManager.prototype.updateVotes = function(postId, voteChange) {
@@ -164,11 +230,26 @@ PostManager.prototype.updateVotes = function(postId, voteChange) {
     const post = posts.find(post => post.id === postId);
 
     if (post) {
-        post.votes += voteChange;
+        post.votes += voteChange;  // Update the vote count by the voteChange
         localStorage.setItem('posts', JSON.stringify(posts));
-        this.loadAndRenderPosts();
+        this.loadAndRenderPosts(); // Re-render posts to reflect updated votes
     }
 };
+
+PostManager.prototype.removeVote = function(postId, voteType) {
+    const votesData = JSON.parse(localStorage.getItem('votes') || '{}');
+    
+    // Set the vote to null instead of deleting
+    votesData[postId] = null;
+    localStorage.setItem('votes', JSON.stringify(votesData));
+
+    // Adjust the vote count to reflect the removal
+    const voteChange = (voteType === 'upvote') ? -1 : 1;
+    this.updateVotes(postId, voteChange);
+};
+
+
+
 
 PostManager.prototype.ensureInitialPosts = function() {
     const initialPosts = [
