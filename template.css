@@ -60,6 +60,7 @@
 .sidebar-left{
     float:left;
     width: 15%;
+    text-decoration: none; 
     border-right: 1px solid  #dedede;
     font-size: 13px;
 }
@@ -80,10 +81,12 @@
 
     height: 50px;
 }
-
-.sidebar-left nav li span {
-    text-decoration: none;
+.sidebar-left nav a {
+    text-decoration: none; 
+    border-right: 1px solid  #dedede;
+    font-size: 13px;
 }
+
 .main{
     float:center;
     width:100%;

@@ -1,0 +1,36 @@
+{
+    "UAE": [
+        {
+            "id": "post_1",
+            "title": "My Visit to Dubai",
+            "description": "I visited this restaurant in Barsha, Dubai. It had really good food, 10/10!",
+            "image": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/ba/41/a6/samgyupsal.jpg?w=600&h=400&s=1",
+            "timestamp": "2024-12-13T10:00:00Z",
+            "page": "UAE",
+            "votes": 200,
+            "comments": []
+        },
+        {
+            "id": "post_2",
+            "title": "I Visited Burj Khalifa",
+            "description": "The tallest tower in the world is one of the coolest places to visit.",
+            "image": "https://media.tacdn.com/media/attractions-splice-spp-674x446/12/32/ad/2c.jpg",
+            "timestamp": "2024-12-13T10:00:00Z",
+            "page": "UAE",
+            "votes": 0,
+            "comments": []
+        }
+    ],
+    "KSA": [
+        {
+            "id": "post_3",
+            "title": "Visit to Riyadh",
+            "description": "Had a wonderful time in Riyadh, amazing food and culture!",
+            "image": "https://example.com/riyadh.jpg",
+            "timestamp": "2024-12-13T10:00:00Z",
+            "page": "KSA",
+            "votes": 15,
+            "comments": []
+        }
+    ]
+}

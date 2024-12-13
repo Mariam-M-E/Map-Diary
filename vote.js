@@ -128,10 +128,7 @@ PostManager.prototype.createNewPost = function() {
 };
 
 PostManager.prototype.loadAndRenderPosts = function() {
-    this.mainBox.innerHTML = '';
-
-    this.ensureInitialPosts();
-
+    this.mainBox.innerHTML = ''; // Clear existing posts
     const posts = this.getAllPosts();
     const pageSpecificPosts = posts
         .filter(post => post.page === this.currentPage)
@@ -139,6 +136,11 @@ PostManager.prototype.loadAndRenderPosts = function() {
 
     pageSpecificPosts.forEach(post => this.renderPost(post));
 };
+
+PostManager.prototype.getAllPosts = function() {
+    return JSON.parse(localStorage.getItem('posts') || '[]');
+};
+
 
 PostManager.prototype.renderPost = function(post) {
     const postHTML = `
@@ -158,6 +160,8 @@ PostManager.prototype.renderPost = function(post) {
     `;
     this.mainBox.insertAdjacentHTML('beforeend', postHTML);
 };
+
+
 
 PostManager.prototype.setupEventListeners = function() {
     this.mainBox.addEventListener('click', (event) => {
@@ -248,40 +252,6 @@ PostManager.prototype.removeVote = function(postId, voteType) {
     this.updateVotes(postId, voteChange);
 };
 
-
-
-
-PostManager.prototype.ensureInitialPosts = function() {
-    const initialPosts = [
-        {
-            id: 'post_1',
-            title: 'My Visit to Dubai',
-            description: 'I visited this restaurant in Barsha, Dubai. It had really good food, 10/10!',
-            image: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/ba/41/a6/samgyupsal.jpg?w=600&h=400&s=1',
-            timestamp: new Date().toISOString(),
-            page: 'UAE',
-            votes: 200,
-            comments: []
-        },
-        {
-            id: 'post_2',
-            title: 'I Visited Burj Khalifa',
-            description: 'The tallest tower in the world is one of the coolest places to visit.',
-            image: 'https://media.tacdn.com/media/attractions-splice-spp-674x446/12/32/ad/2c.jpg',
-            timestamp: new Date().toISOString(),
-            page: 'UAE',
-            votes: 5,
-            comments: []
-        }
-    ];
-
-    const existingPosts = this.getAllPosts();
-    if (existingPosts.length === 0) {
-        localStorage.setItem('posts', JSON.stringify(initialPosts));
-    }
-};
-
-// Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     new PostManager();
 });
