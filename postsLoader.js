@@ -98,8 +98,9 @@ CommentHandler.prototype.setupGlobalCommentListeners = function() {
     var self = this;
     document.addEventListener('click', function(e) {
         if (e.target.classList.contains('add-comment-btn')) {
-            e.preventDefault(); // Prevent any default form submission
-            self.handleAddComment(e.target);
+            e.preventDefault();
+            e.stopPropagation(); // Ensure no other event listeners interfere
+            self.handleAddComment(e, e.target); // Pass event and target to handle method
         } else if (e.target.classList.contains('show-more-comments')) {
             self.toggleComments(e.target, true);
         } else if (e.target.classList.contains('show-less-comments')) {
@@ -108,19 +109,26 @@ CommentHandler.prototype.setupGlobalCommentListeners = function() {
     });
 };
 
-CommentHandler.prototype.handleAddComment = function(button) {
+CommentHandler.prototype.handleAddComment = function(event, button) {
     console.log('Post comment button clicked'); // Debug line
+    event.preventDefault();  // Prevent any default form submission
+    event.stopPropagation(); // Prevent event propagation
+
     var commentSection = button.closest('.comments-section');
     var commentInput = commentSection.querySelector('.comment-input');
-    var commentText = commentInput.value.trim();
+    var commentText = commentInput.value.trim(); // Trim any leading or trailing whitespace
     var postElement = button.closest('.post');
     var postId = postElement.dataset.postId;
 
+    console.log('Comment Text:', commentText); // Log the value of the comment text
+
+    // Ensure the comment text isn't empty or just whitespace
     if (!commentText) {
-        alert('Please enter a comment');
+        alert('Please enter a valid comment');
         return;
     }
 
+    // Create the comment object
     var comment = {
         id: 'comment_' + Date.now(),
         text: commentText,
@@ -128,13 +136,19 @@ CommentHandler.prototype.handleAddComment = function(button) {
     };
 
     this.saveComment(postId, comment);
-    
+
+    // Add the comment to the post's comments container
     var commentsContainer = commentSection.querySelector('.comments-container');
     displayComment(commentsContainer, comment);
-    commentInput.value = '';
 
+    // Clear the input field *after* posting the comment
+    commentInput.value = ''; // Clear the input field after posting
+
+    // Update comment visibility (e.g., show/hide based on count)
     this.updateCommentVisibility(commentsContainer);
 };
+
+
 
 
 CommentHandler.prototype.saveComment = function(postId, comment) {

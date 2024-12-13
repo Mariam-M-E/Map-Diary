@@ -27,47 +27,23 @@ PostSearch.prototype.initializePagesData = function() {
         self.pagesData[country] = [];
     });
 
-    // Fetch all country data in parallel
-    return Promise.all(
-        CONFIG.countries.map(function(country) {
-            return self.fetchCountryData(country);
-        })
-    );
-};
-
-PostSearch.prototype.fetchCountryData = function(country) {
-    var self = this;
-    return fetch(country + '.html')
-        .then(function(response) {
-            if (!response.ok) {
-                throw new Error('HTTP error! status: ' + response.status);
-            }
-            return response.text();
-        })
-        .then(function(html) {
-            self.extractPostTitles(html, country);
-        })
-        .catch(function(error) {
-            console.error('Error fetching ' + country + ' data:', error);
-        });
-};
-
-PostSearch.prototype.extractPostTitles = function(pageContent, country) {
-    var self = this;
-    var parser = new DOMParser();
-    var doc = parser.parseFromString(pageContent, 'text/html');
-    var posts = doc.querySelectorAll('.post');
-    
-    posts.forEach(function(post) {
-        var titleElement = post.querySelector('.post-title');
-        if (titleElement) {
-            var title = titleElement.textContent.trim();
-            self.pagesData[country].push({
-                title: title,
-                country: country,
-                url: self.createPostUrl(country, title)
+    // Retrieve data from localStorage
+    return new Promise(function(resolve) {
+        CONFIG.countries.forEach(function(country) {
+            // Retrieve the specific country data from localStorage
+            var storedData = JSON.parse(localStorage.getItem(country) || '[]');
+            
+            // Transform stored data into search-friendly format
+            self.pagesData[country] = storedData.map(function(post) {
+                return {
+                    title: post.title,
+                    country: country,
+                    description: post.description,
+                    url: self.createPostUrl(country, post.title)
+                };
             });
-        }
+        });
+        resolve();
     });
 };
 
@@ -115,7 +91,8 @@ PostSearch.prototype.getSearchResults = function(searchTerm) {
     });
 
     return allPosts.filter(function(post) {
-        return post.title.toLowerCase().includes(searchTerm);
+        return post.title.toLowerCase().includes(searchTerm) || 
+               post.description.toLowerCase().includes(searchTerm);
     });
 };
 
@@ -142,5 +119,13 @@ PostSearch.prototype.displayResults = function(results) {
 
 // Initialize search when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
+    // First, ensure data is in localStorage if it isn't already
+    if (!localStorage.getItem('UAE')) {
+        // Assuming the data from the first document is available
+        Object.keys(jsonData).forEach(function(country) {
+            localStorage.setItem(country, JSON.stringify(jsonData[country]));
+        });
+    }
+
     new PostSearch();
 });
