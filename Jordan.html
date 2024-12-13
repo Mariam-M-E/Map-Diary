@@ -8,8 +8,8 @@
     <link rel="stylesheet" type="text/css" href="template.css" />
     <link rel="stylesheet" href="search.css" type="text/css">
     <script src="search.js" type="text/javascript"></script>
-    <script src="PostMaker.js" type="text/javascript"></script>
-    <script src="CommentMaker.js" type="text/javascript"></script>
+    <script src="postsLoader.js" type="text/javascript"></script>
+    <script src="vote.js" type="text/javascript"></script>
 </head>
 
    
@@ -26,6 +26,11 @@
             <input type="text" id="searchInput" class="search-input" placeholder="Search posts...">
             <div id="searchResults" class="search-results"></div>
         </div>
+
+        
+        <button id="togglePostForm">
+            <img src="create.webp" alt="Create" style="width: 20px; height: 20px;">
+        </button>
         
     </header>
     
@@ -92,72 +97,6 @@
 
     <div class="container"> <!--large containter that has everything-->
         <div class="main-box"> 
-
-           
-            <div class="country-header"> Top Posts in Jordan</div>
-
-            <div class="post">
-                
-                <img class="pfp" src="https://ih1.redbubble.net/image.5528316120.2448/bg,f8f8f8-flat,750x,075,f-pad,750x1000,f8f8f8.jpg" alt="profile image">
-                <div class="post-title"> my visit to Amman</div>
-                <div class="post-content">I visited this resturant in Amman, it had really good food, 10/10</div>
-                <div class="post-image"> <img src="https://pvt.jo/uploads/filemanager/Restaurants/hashem.jpg" alt="food"> </div>
-                
-                <br>  
-
-                <div class="comments"> 
-                    <div><button class="btn"> ↑ </button></div>
-                    <div class="votes">200</div>
-                    <div><button class="btn"> ↓ </button></div>
-                </div> <!--end of comments-->
-
-
-                <br>
-
-                <div class="text-comments">
-                    <img class="pfp" src="https://i.pinimg.com/236x/dd/25/48/dd2548cfcdfff672100aa6cba83d99ea.jpg" alt="profile image">
-                    <br><br>
-                    <div> wow i really need to visit this place</div>
-                </div><!--end of the visible text comments-->
-                <br>
-                
-                <div ><a class="more-comments" href="">view more...</a></div>
-            </div><!--end of post-->
-
-
-
-
-                <!--another post for the sake of the example-->
-            <div class="post">
-                
-                <img class="pfp" src="https://ih1.redbubble.net/image.5528316120.2448/bg,f8f8f8-flat,750x,075,f-pad,750x1000,f8f8f8.jpg" alt="profile image">
-                <div class="post-title"> I visited Petra</div>
-                <div class="post-content">The camels dont know how aincent this place is</div>
-                <div class="post-image"> <img src="https://i.natgeofe.com/n/69e2cf60-ad59-4d20-bdd1-dc96f40ab4e8/petra-world-heritage-jordan.jpg" alt="tower"> </div>
-                
-                <br>
-                
-                <div class="comments"> 
-                    <div><button class="btn"> ↑ </button></div>
-                    <div class="votes">200</div>
-                    <div><button class="btn"> ↓ </button></div>
-                </div> <!--end of comments-->
-
-
-                <br>
-
-                <div class="text-comments">
-                    <img class="pfp" src="https://i.pinimg.com/236x/dd/25/48/dd2548cfcdfff672100aa6cba83d99ea.jpg" alt="profile image">
-                    <br><br>
-                    <div> it is indeed a wonder of the world</div>
-                </div><!--end of the visible text comments-->
-                <br>
-                
-                <div ><a class="more-comments" href="">view more...</a></div>
-            </div><!--end of post-->
-
-
-
 
 
 

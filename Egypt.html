@@ -8,8 +8,8 @@
     <link rel="stylesheet" type="text/css" href="template.css" />
     <link rel="stylesheet" href="search.css" type="text/css">
     <script src="search.js" type="text/javascript"></script>
-    <script src="PostMaker.js" type="text/javascript"></script>
-    <script src="CommentMaker.js" type="text/javascript"></script>
+    <script src="postsLoader.js" type="text/javascript"></script>
+    <script src="vote.js" type="text/javascript"></script>
 </head>
 
    
@@ -27,6 +27,9 @@
             <div id="searchResults" class="search-results"></div>
         </div>
         
+        <button id="togglePostForm">
+            <img src="create.webp" alt="Create" style="width: 20px; height: 20px;">
+        </button>
     </header>
     
     
@@ -92,72 +95,6 @@
 
     <div class="container"> <!--large containter that has everything-->
         <div class="main-box"> 
-
-           
-            <div class="country-header"> Top Posts in Egypt</div>
-
-            <div class="post">
-                
-                <img class="pfp" src="https://cdn-icons-png.flaticon.com/512/287/287169.png" alt="profile image">
-                <div class="post-title"> my visit to Cairo</div>
-                <div class="post-content">I visited this resturant in 6 October, Egypt, it had really good food, 10/10</div>
-                <div class="post-image"> <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgCs9VNPHNCBuOApjUVL1KBgN07qixmylj4w&s" alt="food"> </div>
-                
-                <br>  
-
-                <div class="comments"> 
-                    <div><button class="btn"> ↑ </button></div>
-                    <div class="votes">72</div>
-                    <div><button class="btn"> ↓ </button></div>
-                </div> <!--end of comments-->
-
-
-                <br>
-
-                <div class="text-comments">
-                    <img class="pfp" src="https://i.pinimg.com/236x/dd/25/48/dd2548cfcdfff672100aa6cba83d99ea.jpg" alt="profile image">
-                    <br><br>
-                    <div> wow i really need to visit this place</div>
-                </div><!--end of the visible text comments-->
-                <br>
-                
-                <div ><a class="more-comments" href="">view more...</a></div>
-            </div><!--end of post-->
-
-
-
-
-                <!--another post for the sake of the example-->
-            <div class="post">
-                
-                <img class="pfp" src="https://cdn-icons-png.flaticon.com/512/287/287169.png" alt="profile image">
-                <div class="post-title"> i visited this town in egypt</div>
-                <div class="post-content">The tallest tower in the world is one of the coolest places to visit</div>
-                <div class="post-image"> <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcReg1UhOF5PnWalnM4EyRhax3ioTz11P35KcA&s" alt="tower"> </div>
-                
-                <br>
-                
-                <div class="comments"> 
-                    <div><button class="btn"> ↑ </button></div>
-                    <div class="votes">200</div>
-                    <div><button class="btn"> ↓ </button></div>
-                </div> <!--end of comments-->
-
-
-                <br>
-
-                <div class="text-comments">
-                    <img class="pfp" src="https://i.pinimg.com/236x/dd/25/48/dd2548cfcdfff672100aa6cba83d99ea.jpg" alt="profile image">
-                    <br><br>
-                    <div> it is indeed a wonder of the world</div>
-                </div><!--end of the visible text comments-->
-                <br>
-                
-                <div ><a class="more-comments" href="">view more...</a></div>
-            </div><!--end of post-->
-
-
-
 
 
 

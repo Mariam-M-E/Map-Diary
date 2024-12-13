@@ -75,5 +75,315 @@
                 }
               ]
             }
-          ]
+          ],
+
+        "Qatar": [
+        {
+            "id": "post_1",
+            "title": "My Visit to Doha",
+            "description": "I visited Doha, their Tea time had better zinger pratah.",
+            "image": "https://cdn2.advanceinfotech.org/doha.directory/1200x675/business/169/tea-time-ramada-junction023569-1650363517.webp",
+            "timestamp": "2024-12-13T10:00:00Z",
+            "page": "Qatar",
+            "votes": 200,
+            "comments": [
+                {
+                    "id": "comment_1",
+                    "text": "wow i really need to visit this place",
+                    "timestamp": "2024-12-13T12:00:00Z"
+                }
+            ]
+        },
+        {
+            "id": "post_2",
+            "title": "I Visited Downtown Doha",
+            "description": "The sun here really fits in between the tower.",
+            "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQ6CL-kArWZUXYAdpOsijcA10AUSrieup8BQ&s",
+            "timestamp": "2024-12-13T10:00:00Z",
+            "page": "Qatar",
+            "votes": 200,
+            "comments": [
+                {
+                    "id": "comment_2",
+                    "text": "it is indeed a wonder of the world",
+                    "timestamp": "2024-12-13T12:00:00Z"
+                }
+            ]
+        }
+    ],
+
+    "Saudi": [
+        {
+            "id": "post_1",
+            "title": "My Visit to Jeddah",
+            "description": "I visited this Desert in Jeddah, a very wonderful experience.",
+            "image": "https://www.designboom.com/wp-content/uploads/2019/02/maraya-concert-hall-designboom-02.jpg",
+            "timestamp": "2024-12-13T10:00:00Z",
+            "page": "Saudi Arabia",
+            "votes": 200,
+            "comments": [
+                {
+                    "id": "comment_1",
+                    "text": "wow i really need to visit this place",
+                    "timestamp": "2024-12-13T12:00:00Z"
+                }
+            ]
+        },
+        {
+            "id": "post_2",
+            "title": "I Visited Riyadh in New Years, Cool Tower",
+            "description": "The tallest tower in the world is one of the coolest places to visit.",
+            "image": "https://omrania.com/wp-content/uploads/Omrania-Kingdome-Center_Saudi-Arabia-KSA-Abdullah_Aleisa.jpg",
+            "timestamp": "2024-12-13T10:00:00Z",
+            "page": "Saudi Arabia",
+            "votes": 200,
+            "comments": [
+                {
+                    "id": "comment_2",
+                    "text": "it is indeed a wonder of the world",
+                    "timestamp": "2024-12-13T12:00:00Z"
+                }
+            ]
+        }
+    ],
+
+    "Syria": [
+        {
+            "id": "post_1",
+            "title": "My Visit to Syria",
+            "description": "No electricity, had to go outside, it was cool tho, visited this castle and the weather was tolerable.",
+            "image": "https://t3.ftcdn.net/jpg/00/52/35/26/360_F_52352650_usN7fagIsxjhD5hhJnJYXL3fPgrWoSrY.jpg",
+            "timestamp": "2024-12-13T10:00:00Z",
+            "page": "Syria",
+            "votes": 200,
+            "comments": [
+                {
+                    "id": "comment_1",
+                    "text": "wow i really need to visit this place",
+                    "timestamp": "2024-12-13T12:00:00Z"
+                }
+            ]
+        },
+        {
+            "id": "post_2",
+            "title": "I Visited Ummayad Mosque in Damascus",
+            "description": "This is one of the oldest mosques there to exist, it used to even be a church.",
+            "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5K_heBJB3Kt3UixaCEyBqv_Qtq-YEtpA7Hg&s",
+            "timestamp": "2024-12-13T10:00:00Z",
+            "page": "Syria",
+            "votes": 200,
+            "comments": [
+                {
+                    "id": "comment_2",
+                    "text": "it is indeed a wonder of the world",
+                    "timestamp": "2024-12-13T12:00:00Z"
+                }
+            ]
+        }
+    ],
+
+    "Palestine": [
+        {
+            "id": "post_1",
+            "title": "A Trip to the Olive Farm",
+            "description": "I just visited this olive farm and the owners were really nice and gave us free olives.",
+            "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbqH9jWbDkqX2kk0nswwZGOFpESUPxPrrinQ&s",
+            "timestamp": "2024-12-13T10:00:00Z",
+            "page": "Palestine",
+            "votes": 200,
+            "comments": [
+                {
+                    "id": "comment_1",
+                    "text": "wow i really need to visit this place",
+                    "timestamp": "2024-12-13T12:00:00Z"
+                }
+            ]
+        },
+        {
+            "id": "post_2",
+            "title": "I Visited Kubat Al Sakhra",
+            "description": "One of the most beautiful mosques I have seen.",
+            "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7hqrv1LZCidVDBwppNr6es1WeCgneaJ9dJg&s",
+            "timestamp": "2024-12-13T10:00:00Z",
+            "page": "Palestine",
+            "votes": 200,
+            "comments": [
+                {
+                    "id": "comment_2",
+                    "text": "it is indeed a wonder of the world",
+                    "timestamp": "2024-12-13T12:00:00Z"
+                }
+            ]
+        }
+    ],
+    "Oman": [
+        {
+            "id": "post_1",
+            "title": "My Visit to Muscat",
+            "description": "Wonderful city with no skyscrapers, they really did well on that.",
+            "image": "https://static.independent.co.uk/s3fs-public/thumbnails/image/2019/12/10/15/oman-overview.jpg",
+            "timestamp": "2024-12-13T10:00:00Z",
+            "page": "Oman",
+            "votes": 200,
+            "comments": [
+                {
+                    "id": "comment_1",
+                    "text": "wow i really need to visit this place",
+                    "timestamp": "2024-12-13T12:00:00Z"
+                }
+            ]
+        },
+        {
+            "id": "post_2",
+            "title": "Salala is the Best Vacation I Had",
+            "description": "This place really feels like Norway in the summer.",
+            "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgy4UXX9lUZiw1FOtkTQH-gIlZ-XoThgsvFQ&s",
+            "timestamp": "2024-12-13T10:00:00Z",
+            "page": "Oman",
+            "votes": 200,
+            "comments": [
+                {
+                    "id": "comment_2",
+                    "text": "it is indeed a wonder of the world",
+                    "timestamp": "2024-12-13T12:00:00Z"
+                }
+            ]
+        }
+    ],
+    "Morroco": [
+        {
+            "id": "post_1",
+            "title": "My Visit to Rebbat, Really Feels Like Europe",
+            "description": "I went to this town in Rebbat, a very cool town to visit in the winter.",
+            "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-hev0INJ8tSnOVdmoetaofbsryye7MYrgnA&s",
+            "timestamp": "2024-12-13T10:00:00Z",
+            "page": "Morocco",
+            "votes": 200,
+            "comments": [
+                {
+                    "id": "comment_1",
+                    "text": "wow i really need to visit this place",
+                    "timestamp": "2024-12-13T12:00:00Z"
+                }
+            ]
+        },
+        {
+            "id": "post_2",
+            "title": "My Visit to the Town on Top of the Mountain",
+            "description": "I tried to jump from the top and they stopped me.",
+            "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShTOo6TeKBG0H0YuHbBUDAC-DCMRvHE2ZZkg&s",
+            "timestamp": "2024-12-13T10:00:00Z",
+            "page": "Morocco",
+            "votes": 200,
+            "comments": [
+                {
+                    "id": "comment_2",
+                    "text": "it is indeed a wonder of the world",
+                    "timestamp": "2024-12-13T12:00:00Z"
+                }
+            ]
+        }
+    ],
+    "Lebanon": [
+        {
+            "id": "post_1",
+            "title": "My Visit to Lebanon",
+            "description": "I visited this restaurant in Beirut, it had really good food, 10/10.",
+            "image": "https://b.zmtcdn.com/data/pictures/2/201612/ca76901abdf55a8060a6ef17a1f06293_featured_v2.jpg",
+            "timestamp": "2024-12-13T10:00:00Z",
+            "page": "Lebanon",
+            "votes": 200,
+            "comments": [
+                {
+                    "id": "comment_1",
+                    "text": "wow i really need to visit this place",
+                    "timestamp": "2024-12-13T12:00:00Z"
+                }
+            ]
+        },
+        {
+            "id": "post_2",
+            "title": "I Visited Beirut",
+            "description": "One of the most beautiful rocks I have seen.",
+            "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoY7fLqgsT8CJOb6qyob6cp4uIh_Es6-mYOA&s",
+            "timestamp": "2024-12-13T10:00:00Z",
+            "page": "Lebanon",
+            "votes": 200,
+            "comments": [
+                {
+                    "id": "comment_2",
+                    "text": "it is indeed a wonder of the world",
+                    "timestamp": "2024-12-13T12:00:00Z"
+                }
+            ]
+        }
+    ],     "Jordan": [
+        {
+            "id": "post_1",
+            "title": "My Visit to Amman",
+            "description": "I visited this restaurant in Amman, it had really good food, 10/10.",
+            "image": "https://pvt.jo/uploads/filemanager/Restaurants/hashem.jpg",
+            "timestamp": "2024-12-13T10:00:00Z",
+            "page": "Jordan",
+            "votes": 200,
+            "comments": [
+                {
+                    "id": "comment_1",
+                    "text": "wow i really need to visit this place",
+                    "timestamp": "2024-12-13T12:00:00Z"
+                }
+            ]
+        },
+        {
+            "id": "post_2",
+            "title": "I Visited Petra",
+            "description": "The camels don't know how ancient this place is.",
+            "image": "https://i.natgeofe.com/n/69e2cf60-ad59-4d20-bdd1-dc96f40ab4e8/petra-world-heritage-jordan.jpg",
+            "timestamp": "2024-12-13T10:00:00Z",
+            "page": "Jordan",
+            "votes": 200,
+            "comments": [
+                {
+                    "id": "comment_2",
+                    "text": "it is indeed a wonder of the world",
+                    "timestamp": "2024-12-13T12:00:00Z"
+                }
+            ]
+        }
+    ],
+    "Egypt": [
+        {
+            "id": "post_1",
+            "title": "My Visit to Cairo",
+            "description": "I visited this restaurant in 6 October, Egypt, it had really good food, 10/10.",
+            "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgCs9VNPHNCBuOApjUVL1KBgN07qixmylj4w&s",
+            "timestamp": "2024-12-13T10:00:00Z",
+            "page": "Egypt",
+            "votes": 72,
+            "comments": [
+                {
+                    "id": "comment_1",
+                    "text": "wow i really need to visit this place",
+                    "timestamp": "2024-12-13T12:00:00Z"
+                }
+            ]
+        },
+        {
+            "id": "post_2",
+            "title": "I Visited This Town in Egypt",
+            "description": "The tallest tower in the world is one of the coolest places to visit.",
+            "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcReg1UhOF5PnWalnM4EyRhax3ioTz11P35KcA&s",
+            "timestamp": "2024-12-13T10:00:00Z",
+            "page": "Egypt",
+            "votes": 200,
+            "comments": [
+                {
+                    "id": "comment_2",
+                    "text": "it is indeed a wonder of the world",
+                    "timestamp": "2024-12-13T12:00:00Z"
+                }
+            ]
+        }
+    ]
+
 }

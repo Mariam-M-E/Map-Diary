@@ -1,3 +1,9 @@
+function getPostById(postId) {
+    const locationKey = getLocationKey();
+    const posts = JSON.parse(localStorage.getItem(locationKey) || '[]');
+    return posts.find(post => post.id === postId);
+}
+
 function loadInitialPosts() {
     fetch('posts.json')
         .then(response => {
@@ -10,7 +16,7 @@ function loadInitialPosts() {
             const currentPage = window.location.pathname.split('/').pop().replace('.html', '');
             const postsForPage = data[currentPage] || [];
 
-            let locationKey = getLocationKey(); // Fetch location-specific key (e.g., 'Dubai')
+            let locationKey = currentPage; // Use consistent location key method
             let storedPosts = localStorage.getItem(locationKey);
 
             if (!storedPosts) {
@@ -25,6 +31,25 @@ function loadInitialPosts() {
         .catch(err => console.error('Error loading posts:', err));
 }
 
+
+
+function CommentHandler() {
+    this.setupGlobalCommentListeners();
+}
+
+CommentHandler.prototype.loadPostComments = function(postId) {
+    const post = getPostById(postId);
+    const commentsContainer = document.querySelector(`[data-post-id="${postId}"] .comments-container`);
+
+    if (post.comments && post.comments.length > 0) {
+        post.comments.forEach(comment => {
+            displayComment(commentsContainer, comment);
+        });
+    }
+
+    this.updateCommentVisibility(commentsContainer);
+};
+
 function renderPosts(posts) {
     const mainBox = document.querySelector('.main-box');
     if (!mainBox) {
@@ -33,6 +58,8 @@ function renderPosts(posts) {
     }
     
     mainBox.innerHTML = ''; 
+    const commentHandlerInstance = new CommentHandler();
+
     posts.forEach(post => {
         const postHTML = `
         <div class="post" data-post-id="${post.id}">
@@ -50,69 +77,132 @@ function renderPosts(posts) {
                     <div class="vote-count">${post.votes}</div>
                     <button class="btn downvote-btn" aria-label="Downvote">↓</button>
                 </div>
-            <div class="comments-section">
-                <div class="comments-container"></div>
-                <div class="comment-input-container">
-                    <textarea class="comment-input" placeholder="Add a comment..."></textarea>
-                    <button class="add-comment-btn">Post Comment</button>
+                <div class="comments-section">
+                    <div class="comments-container"></div>
+                    <div class="comment-input-container">
+                        <textarea class="comment-input" placeholder="Add a comment..."></textarea>
+                        <button class="add-comment-btn">Post Comment</button>
+                    </div>
                 </div>
-            </div>
-    
             </div>
         </div>
         `;
     
         mainBox.insertAdjacentHTML('beforeend', postHTML);
-        loadPostComments(post.id);
+        commentHandlerInstance.loadPostComments(post.id); // Use method from the instance
     });
 }
 
-function loadPostComments(postId) {
-    const post = getPostById(postId);
-    const commentsContainer = document.querySelector(`[data-post-id="${postId}"] .comments-container`);
 
-    if (post.comments && post.comments.length > 0) {
-        post.comments.forEach(comment => {
-            displayComment(commentsContainer, comment);
-        });
+CommentHandler.prototype.setupGlobalCommentListeners = function() {
+    var self = this;
+    document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('add-comment-btn')) {
+            e.preventDefault(); // Prevent any default form submission
+            self.handleAddComment(e.target);
+        } else if (e.target.classList.contains('show-more-comments')) {
+            self.toggleComments(e.target, true);
+        } else if (e.target.classList.contains('show-less-comments')) {
+            self.toggleComments(e.target, false);
+        }
+    });
+};
+
+CommentHandler.prototype.handleAddComment = function(button) {
+    console.log('Post comment button clicked'); // Debug line
+    var commentSection = button.closest('.comments-section');
+    var commentInput = commentSection.querySelector('.comment-input');
+    var commentText = commentInput.value.trim();
+    var postElement = button.closest('.post');
+    var postId = postElement.dataset.postId;
+
+    if (!commentText) {
+        alert('Please enter a comment');
+        return;
     }
 
-    updateCommentVisibility(commentsContainer);
-}
+    var comment = {
+        id: 'comment_' + Date.now(),
+        text: commentText,
+        timestamp: new Date().toISOString()
+    };
 
-function getPostById(postId) {
-    const locationKey = getLocationKey(); // Fetch location key dynamically
+    this.saveComment(postId, comment);
+    
+    var commentsContainer = commentSection.querySelector('.comments-container');
+    displayComment(commentsContainer, comment);
+    commentInput.value = '';
+
+    this.updateCommentVisibility(commentsContainer);
+};
+
+
+CommentHandler.prototype.saveComment = function(postId, comment) {
+    const locationKey = getLocationKey();
     const posts = JSON.parse(localStorage.getItem(locationKey) || '[]');
-    return posts.find(post => post.id === postId);
-}
-
-function getLocationKey() {
-    currentPage = window.location.pathname.split('/').pop().replace('.html', '');
-    return currentPage
-}
+    const post = posts.find(p => p.id === postId);
+    if (post) {
+        post.comments = post.comments || [];
+        post.comments.push(comment);
+        localStorage.setItem(locationKey, JSON.stringify(posts));
+    }
+};
 
 function displayComment(container, comment) {
-    const commentText = comment.text || '[Unknown Comment]'; 
-    const pfpUrl = comment.pfp || 'default-pfp.png'; 
-
     const commentHTML = `
         <div class="text-comments" data-comment-id="${comment.id}">
-            <img src="${pfpUrl}" class="pfp" alt="Profile picture">
-            <div>${commentText}</div>
+            <img src="https://i.pinimg.com/236x/47/ba/71/47ba71f457434319819ac4a7cbd9988e.jpg" class="pfp" alt="Profile picture">
+            <div>${comment.text}</div>
         </div>
     `;
     container.insertAdjacentHTML('beforeend', commentHTML);
 }
 
-function updateCommentVisibility(container) {
-    const comments = container.querySelectorAll('.comment');
-    comments.forEach(comment => {
-        if (comment.textContent.trim() === '') {
-            comment.style.display = 'none';
-        } else {
-            comment.style.display = 'block';
+CommentHandler.prototype.updateCommentVisibility = function(container) {
+    var comments = container.querySelectorAll('.text-comments');
+    var showMoreBtn = container.querySelector('.show-more-comments');
+    var showLessBtn = container.querySelector('.show-less-comments');
+
+    if (comments.length > 3) {
+        comments.forEach((comment, index) => {
+            if (index >= 3) {
+                comment.style.display = 'none';
+            }
+        });
+
+        if (!showMoreBtn && !showLessBtn) {
+            container.insertAdjacentHTML('beforeend', ` 
+                <button class="show-more-comments" style="color: blue; background: none; border: none; cursor: pointer; margin-top: 10px;">Show more...</button>
+            `);
+        }
+    }
+};
+
+CommentHandler.prototype.toggleComments = function(button, showMore) {
+    var container = button.closest('.comments-container');
+    if (!container) {
+        console.error('Comments container not found');
+        return;
+    }
+
+    var comments = container.querySelectorAll('.text-comments');
+    comments.forEach((comment, index) => {
+        if (index >= 3) {
+            comment.style.display = showMore ? 'block' : 'none';
         }
     });
+
+    button.outerHTML = showMore 
+        ? `<button class="show-less-comments" style="color: blue; background: none; border: none; cursor: pointer; margin-top: 10px;">Show less...</button>`
+        : `<button class="show-more-comments" style="color: blue; background: none; border: none; cursor: pointer; margin-top: 10px;">Show more...</button>`;
+};
+
+
+function getLocationKey() {
+    return window.location.pathname.split('/').pop().replace('.html', '');
 }
 
-document.addEventListener('DOMContentLoaded', loadInitialPosts);
+document.addEventListener('DOMContentLoaded', function() {
+    loadInitialPosts();
+    new CommentHandler(); 
+});
