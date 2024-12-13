@@ -16,7 +16,7 @@ function loadInitialPosts() {
             const currentPage = window.location.pathname.split('/').pop().replace('.html', '');
             const postsForPage = data[currentPage] || [];
 
-            let locationKey = currentPage; // Use consistent location key method
+            let locationKey = currentPage;
             let storedPosts = localStorage.getItem(locationKey);
 
             if (!storedPosts) {
@@ -30,8 +30,6 @@ function loadInitialPosts() {
         })
         .catch(err => console.error('Error loading posts:', err));
 }
-
-
 
 function CommentHandler() {
     this.setupGlobalCommentListeners();
@@ -89,46 +87,44 @@ function renderPosts(posts) {
         `;
     
         mainBox.insertAdjacentHTML('beforeend', postHTML);
-        commentHandlerInstance.loadPostComments(post.id); // Use method from the instance
+        commentHandlerInstance.loadPostComments(post.id);
     });
 }
-
 
 CommentHandler.prototype.setupGlobalCommentListeners = function() {
     var self = this;
     document.addEventListener('click', function(e) {
-        if (e.target.classList.contains('add-comment-btn')) {
+        const button = e.target.closest('.add-comment-btn');
+        if (button) {
+            console.log("Button clicked:", button);  // Debug: Check if button is found
             e.preventDefault();
-            e.stopPropagation(); // Ensure no other event listeners interfere
-            self.handleAddComment(e, e.target); // Pass event and target to handle method
-        } else if (e.target.classList.contains('show-more-comments')) {
+            e.stopPropagation();
+            self.handleAddComment(e, button);
+        } else if (e.target.closest('.show-more-comments')) {
             self.toggleComments(e.target, true);
-        } else if (e.target.classList.contains('show-less-comments')) {
+        } else if (e.target.closest('.show-less-comments')) {
             self.toggleComments(e.target, false);
         }
     });
 };
 
+
+
 CommentHandler.prototype.handleAddComment = function(event, button) {
-    console.log('Post comment button clicked'); // Debug line
-    event.preventDefault();  // Prevent any default form submission
-    event.stopPropagation(); // Prevent event propagation
+    event.preventDefault();  
+    event.stopPropagation();
 
     var commentSection = button.closest('.comments-section');
     var commentInput = commentSection.querySelector('.comment-input');
-    var commentText = commentInput.value.trim(); // Trim any leading or trailing whitespace
+    var commentText = commentInput.value.trim();
     var postElement = button.closest('.post');
     var postId = postElement.dataset.postId;
 
-    console.log('Comment Text:', commentText); // Log the value of the comment text
-
-    // Ensure the comment text isn't empty or just whitespace
     if (!commentText) {
         alert('Please enter a valid comment');
         return;
     }
 
-    // Create the comment object
     var comment = {
         id: 'comment_' + Date.now(),
         text: commentText,
@@ -137,19 +133,13 @@ CommentHandler.prototype.handleAddComment = function(event, button) {
 
     this.saveComment(postId, comment);
 
-    // Add the comment to the post's comments container
     var commentsContainer = commentSection.querySelector('.comments-container');
     displayComment(commentsContainer, comment);
 
-    // Clear the input field *after* posting the comment
-    commentInput.value = ''; // Clear the input field after posting
+    commentInput.value = '';
 
-    // Update comment visibility (e.g., show/hide based on count)
     this.updateCommentVisibility(commentsContainer);
 };
-
-
-
 
 CommentHandler.prototype.saveComment = function(postId, comment) {
     const locationKey = getLocationKey();
@@ -202,7 +192,7 @@ CommentHandler.prototype.toggleComments = function(button, showMore) {
     var comments = container.querySelectorAll('.text-comments');
     comments.forEach((comment, index) => {
         if (index >= 3) {
-            comment.style.display = showMore ? 'block' : 'none';
+            comment.style.display = showMore ? 'flex' : 'none';
         }
     });
 
@@ -210,7 +200,6 @@ CommentHandler.prototype.toggleComments = function(button, showMore) {
         ? `<button class="show-less-comments" style="color: blue; background: none; border: none; cursor: pointer; margin-top: 10px;">Show less...</button>`
         : `<button class="show-more-comments" style="color: blue; background: none; border: none; cursor: pointer; margin-top: 10px;">Show more...</button>`;
 };
-
 
 function getLocationKey() {
     return window.location.pathname.split('/').pop().replace('.html', '');

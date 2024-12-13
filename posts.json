@@ -18,16 +18,6 @@
                     "id": "comment_1",
                     "text": "wow i really need to visit this place",
                     "timestamp": "2024-12-13T12:00:00Z"
-                  },
-                  {
-                    "id": "comment_1",
-                    "text": "wow i really need to visit this place",
-                    "timestamp": "2024-12-13T12:00:00Z"
-                  },
-                  {
-                    "id": "comment_1",
-                    "text": "wow i really need to visit this place",
-                    "timestamp": "2024-12-13T12:00:00Z"
                   }
             ]
         },
@@ -38,7 +28,7 @@
             "image": "https://media.tacdn.com/media/attractions-splice-spp-674x446/12/32/ad/2c.jpg",
             "timestamp": "2024-12-13T10:00:00Z",
             "page": "UAE",
-            "votes": 0,
+            "votes": 50,
             "comments": []
         }
     ],
