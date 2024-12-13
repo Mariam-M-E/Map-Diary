@@ -192,10 +192,20 @@ PostManager.prototype.getPostById = function(postId) {
 };
 
 // Function to display comments
+// Function to display comments with profile picture
 PostManager.prototype.displayComment = function(container, comment) {
-    const commentHTML = `<div class="comment">${comment}</div>`;
+    const commentText = comment.text || '[Unknown Comment]'; // Comment text
+    const pfpUrl = comment.pfp || 'default-pfp.png'; // Profile picture URL (fallback to default)
+
+    var commentHTML = `
+        <div class="text-comments" data-comment-id="${comment.id}">
+            <img src="https://i.pinimg.com/236x/dd/25/48/dd2548cfcdfff672100aa6cba83d99ea.jpg"m;, class="pfp">
+            <div>${comment.text}</div>
+        </div>
+    `;
     container.insertAdjacentHTML('beforeend', commentHTML);
 };
+
 
 // Function to update visibility of comments
 PostManager.prototype.updateCommentVisibility = function(container) {
