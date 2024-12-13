@@ -105,6 +105,9 @@ PostManager.prototype.createNewPost = function() {
 
     const reader = new FileReader();
     reader.onload = (e) => {
+        // First, load existing posts for the current country
+        const posts = this.loadPostsByCountry();
+
         const post = {
             id: 'post_' + Date.now(),
             title: title,
@@ -116,16 +119,22 @@ PostManager.prototype.createNewPost = function() {
             comments: []
         };
 
-        this.savePostsByCountry(post);
+        // Add the new post to the existing posts array
+        posts.push(post);
+
+        // Save the updated posts array
+        this.savePostsByCountry(posts);
         this.loadAndRenderPosts();
 
+        // Clear form inputs
         document.getElementById('postTitle').value = '';
         document.getElementById('postDescription').value = '';
         document.getElementById('postImage').value = '';
 
+        // Remove the form
         const postForm = document.querySelector('.post-form');
         if (postForm) {
-            postForm.remove(); // Remove the form after submission
+            postForm.remove(); 
         }
     };
 
