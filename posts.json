@@ -13,7 +13,22 @@
                   "id": "comment_1",
                   "text": "wow i really need to visit this place",
                   "timestamp": "2024-12-13T12:00:00Z"
-                }
+                },
+                {
+                    "id": "comment_1",
+                    "text": "wow i really need to visit this place",
+                    "timestamp": "2024-12-13T12:00:00Z"
+                  },
+                  {
+                    "id": "comment_1",
+                    "text": "wow i really need to visit this place",
+                    "timestamp": "2024-12-13T12:00:00Z"
+                  },
+                  {
+                    "id": "comment_1",
+                    "text": "wow i really need to visit this place",
+                    "timestamp": "2024-12-13T12:00:00Z"
+                  }
             ]
         },
         {
@@ -27,16 +42,38 @@
             "comments": []
         }
     ],
-    "KSA": [
-        {
-            "id": "post_3",
-            "title": "Visit to Riyadh",
-            "description": "Had a wonderful time in Riyadh, amazing food and culture!",
-            "image": "https://example.com/riyadh.jpg",
-            "timestamp": "2024-12-13T10:00:00Z",
-            "page": "KSA",
-            "votes": 15,
-            "comments": []
-        }
-    ]
+        "Yemen": [
+            {
+              "id": "post_1",
+              "title": "my visit to Sanaa",
+              "description": "I visited this resturant in ٍSanaa it had really good food, 10/10",
+              "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMkvLqdZJ9IYcZ2mBRuYjc_4YAv9mndHv7Ng&s",
+              "timestamp": "2024-12-13T10:00:00Z",
+              "page": "Yemen",
+              "votes": 200,
+              "comments": [
+                {
+                  "id": "comment_1",
+                  "text": "wow i really need to visit this place",
+                  "timestamp": "2024-12-13T12:00:00Z"
+                }
+              ]
+            },
+            {
+              "id": "post_2",
+              "title": "I visited Haddramout",
+              "description": "The architechture of this place is wonderful",
+              "image": "https://www.christravelblog.com/wp-content/uploads/2022/11/hawfah-village-wadi-doan-mainland-yemen-itinerary-with-all-the-best-places-to-visit-in-hadramout-IMG_0555-1024x574.jpg",
+              "timestamp": "2024-12-13T10:00:00Z",
+              "page": "Yemen",
+              "votes": 200,
+              "comments": [
+                {
+                  "id": "comment_2",
+                  "text": "it is indeed a wonder of the world",
+                  "timestamp": "2024-12-13T12:00:00Z"
+                }
+              ]
+            }
+          ]
 }

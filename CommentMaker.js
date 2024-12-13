@@ -1,4 +1,3 @@
-// Comment Handler class for managing comments across posts
 function CommentHandler() {
     this.init();
 }
@@ -17,16 +16,12 @@ CommentHandler.prototype.setupGlobalCommentListeners = function() {
             self.toggleComments(e.target, true);
         } else if (e.target.classList.contains('show-less-comments')) {
             self.toggleComments(e.target, false);
-        } else if (e.target.classList.contains('vote-up')) {
-            self.handleVote(e.target, 1);
-        } else if (e.target.classList.contains('vote-down')) {
-            self.handleVote(e.target, -1);
         }
     });
 };
 
 CommentHandler.prototype.loadExistingComments = function() {
-    var posts = JSON.parse(localStorage.getItem('posts') || '[]');
+    var posts = this.loadPostsByLocation();
     posts.forEach(post => {
         var postElement = document.querySelector(`[data-post-id="${post.id}"]`);
         if (postElement) {
@@ -67,12 +62,12 @@ CommentHandler.prototype.handleAddComment = function(button) {
 };
 
 CommentHandler.prototype.saveComment = function(postId, comment) {
-    var posts = JSON.parse(localStorage.getItem('posts') || '[]');
-    var post = posts.find(p => p.id === postId);
+    const posts = this.loadPostsByLocation();
+    const post = posts.find(p => p.id === postId);
     if (post) {
         post.comments = post.comments || [];
         post.comments.push(comment);
-        localStorage.setItem('posts', JSON.stringify(posts));
+        this.savePostsByLocation(posts); // Save posts back to localStorage
     }
 };
 
@@ -121,22 +116,22 @@ CommentHandler.prototype.toggleComments = function(button, showMore) {
         : `<button class="show-more-comments" style="color: blue; background: none; border: none; cursor: pointer; margin-top: 10px;">Show more...</button>`;
 };
 
-CommentHandler.prototype.handleVote = function(button, value) {
-    var postElement = button.closest('.post');
-    var postId = postElement.dataset.postId;
-    var votesElement = postElement.querySelector('.votes');
-    
-    var posts = JSON.parse(localStorage.getItem('posts') || '[]');
-    var post = posts.find(p => p.id === postId);
-    
-    if (post) {
-        post.votes = (post.votes || 0) + value;
-        localStorage.setItem('posts', JSON.stringify(posts));
-        votesElement.textContent = post.votes;
-    }
+CommentHandler.prototype.loadPostsByLocation = function() {
+    const location = this.getLocation();
+    const posts = JSON.parse(localStorage.getItem(location) || '[]');
+    return posts;
 };
 
-// Initialize when DOM is loaded
+CommentHandler.prototype.savePostsByLocation = function(posts) {
+    const location = this.getLocation();
+    localStorage.setItem(location, JSON.stringify(posts)); // Save updated posts to localStorage
+};
+
+CommentHandler.prototype.getLocation = function() {
+    currentPage = window.location.pathname.split('/').pop().replace('.html', '');
+    return currentPage
+};
+
 document.addEventListener('DOMContentLoaded', function() {
     new CommentHandler();
 });

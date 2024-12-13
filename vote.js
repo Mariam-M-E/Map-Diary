@@ -130,14 +130,18 @@ PostManager.prototype.createNewPost = function() {
 };
 
 PostManager.prototype.loadAndRenderPosts = function() {
-    this.mainBox.innerHTML = ''; // Clear existing posts
     const posts = this.getAllPosts();
     const pageSpecificPosts = posts
         .filter(post => post.page === this.currentPage)
         .sort((a, b) => b.votes - a.votes);
 
+    // Clear existing posts in the main box
+    this.mainBox.innerHTML = '';
+
+    // Render each post individually
     pageSpecificPosts.forEach(post => this.renderPost(post));
 };
+
 
 PostManager.prototype.renderPost = function(post) {
     const postHTML = `
