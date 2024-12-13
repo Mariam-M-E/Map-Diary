@@ -1,19 +1,17 @@
+// Function to load and render posts
 function loadInitialPosts() {
-    const currentPage = window.location.pathname.split('/').pop().replace('.html', '');
     fetch('posts.json')
         .then(response => response.json())
         .then(data => {
+            const currentPage = window.location.pathname.split('/').pop().replace('.html', '');
             const postsForPage = data[currentPage] || [];
-            const existingPosts = JSON.parse(localStorage.getItem('posts') || '[]');
-            if (existingPosts.length === 0) {
+            if (!localStorage.getItem('posts')) {
                 localStorage.setItem('posts', JSON.stringify(postsForPage));
             }
+            renderPosts(postsForPage);
         })
-        .catch(error => {
-            console.error('Error loading posts:', error);
-        });
+        .catch(err => console.error('Error loading posts:', err));
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    loadInitialPosts();
-});
+// Render posts when the document is ready
+document.addEventListener('DOMContentLoaded', loadInitialPosts);

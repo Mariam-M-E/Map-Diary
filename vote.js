@@ -54,24 +54,26 @@ PostManager.prototype.createPostForm = function() {
     this.mainBox.insertAdjacentHTML('afterbegin', formHTML);
 };
 
-
 PostManager.prototype.setupEventListeners = function() {
     this.mainBox.addEventListener('click', (event) => {
         const target = event.target;
 
+        // Handle post submission
         if (target.id === 'submitPost') {
             this.createNewPost();
+            return;
         }
 
+        // Handle voting
         const upvoteBtn = target.closest('.upvote-btn');
         const downvoteBtn = target.closest('.downvote-btn');
 
         if (upvoteBtn) {
             const postId = upvoteBtn.closest('.post').dataset.postId;
-            this.updateVotes(postId, 1);
+            this.handleVote(postId, 'upvote');
         } else if (downvoteBtn) {
             const postId = downvoteBtn.closest('.post').dataset.postId;
-            this.updateVotes(postId, -1);
+            this.handleVote(postId, 'downvote');
         }
     });
 };
@@ -137,90 +139,89 @@ PostManager.prototype.loadAndRenderPosts = function() {
     pageSpecificPosts.forEach(post => this.renderPost(post));
 };
 
-PostManager.prototype.getAllPosts = function() {
-    return JSON.parse(localStorage.getItem('posts') || '[]');
-};
-
-
 PostManager.prototype.renderPost = function(post) {
     const postHTML = `
-        <div class="post" data-post-id="${post.id}">
-            <img src="https://wallpapers.com/images/hd/basic-default-pfp-pxi77qv5o0zuz8j3.jpg" class="pfp">
+    <div class="post" data-post-id="${post.id}">
+        <div class="post-header">
+            <img src="https://wallpapers.com/images/hd/basic-default-pfp-pxi77qv5o0zuz8j3.jpg" class="pfp" alt="Profile picture">
             <div class="post-title">${post.title}</div>
-            <div class="post-content">${post.description}</div>
-            <div class="post-image">
-                <img src="${post.image}" alt="Post image">
+        </div>
+        <div class="post-content">${post.description}</div>
+        <div class="post-image">
+            <img src="${post.image}" alt="Post image">
+        </div>
+        <div class="post-footer">
+            <div class="votes">
+                <button class="btn upvote-btn" aria-label="Upvote">↑</button>
+                <div class="vote-count">${post.votes}</div>
+                <button class="btn downvote-btn" aria-label="Downvote">↓</button>
             </div>
-            <div class="comments">
-                <button class="btn upvote-btn">↑</button>
-                <div class="votes">${post.votes}</div>
-                <button class="btn downvote-btn">↓</button>
+        <div class="comments-section">
+            <div class="comments-container"></div>
+            <div class="comment-input-container">
+                <textarea class="comment-input" placeholder="Add a comment..."></textarea>
+                <button class="add-comment-btn">Post Comment</button>
             </div>
         </div>
+
+        </div>
+    </div>
     `;
+
     this.mainBox.insertAdjacentHTML('beforeend', postHTML);
+    this.loadPostComments(post.id);
 };
 
+// Function to load comments for a specific post
+PostManager.prototype.loadPostComments = function(postId) {
+    const post = this.getPostById(postId);
+    const commentsContainer = document.querySelector(`[data-post-id="${postId}"] .comments-container`);
 
+    if (post.comments && post.comments.length > 0) {
+        post.comments.forEach(comment => {
+            this.displayComment(commentsContainer, comment);
+        });
+    }
 
-PostManager.prototype.setupEventListeners = function() {
-    this.mainBox.addEventListener('click', (event) => {
-        const target = event.target;
+    this.updateCommentVisibility(commentsContainer);
+};
 
-        // Handle post submission
-        if (target.id === 'submitPost') {
-            this.createNewPost();
-            return;
-        }
+PostManager.prototype.getPostById = function(postId) {
+    const posts = JSON.parse(localStorage.getItem('posts') || '[]');
+    return posts.find(post => post.id === postId);
+};
 
-        // Handle voting
-        const upvoteBtn = target.closest('.upvote-btn');
-        const downvoteBtn = target.closest('.downvote-btn');
+// Function to display comments
+PostManager.prototype.displayComment = function(container, comment) {
+    const commentHTML = `<div class="comment">${comment}</div>`;
+    container.insertAdjacentHTML('beforeend', commentHTML);
+};
 
-        if (upvoteBtn) {
-            const postId = upvoteBtn.closest('.post').dataset.postId;
-            this.handleVote(postId, 'upvote');
-        } else if (downvoteBtn) {
-            const postId = downvoteBtn.closest('.post').dataset.postId;
-            this.handleVote(postId, 'downvote');
+// Function to update visibility of comments
+PostManager.prototype.updateCommentVisibility = function(container) {
+    const comments = container.querySelectorAll('.comment');
+    comments.forEach(comment => {
+        if (comment.textContent.trim() === '') {
+            comment.style.display = 'none';
+        } else {
+            comment.style.display = 'block';
         }
     });
 };
 
-PostManager.prototype.updateVoteButtonStyles = function(postElement) {
-    const upvoteButton = postElement.querySelector('.upvote-btn');
-    const downvoteButton = postElement.querySelector('.downvote-btn');
-
-    // Get the current vote from localStorage
-    const votesData = JSON.parse(localStorage.getItem('votes') || '{}');
-    const currentVote = votesData[postElement.dataset.postId];
-
-    // Remove both voted and unvoted classes from both buttons
-    upvoteButton.classList.remove('voted', 'unvoted');
-    downvoteButton.classList.remove('voted', 'unvoted');
-
-    // Add appropriate classes based on the current vote
-    upvoteButton.classList.add(currentVote === 'upvote' ? 'voted' : 'unvoted');
-    downvoteButton.classList.add(currentVote === 'downvote' ? 'voted' : 'unvoted');
-};
-
+// Vote handling
 PostManager.prototype.handleVote = function(postId, voteType) {
     const votesData = JSON.parse(localStorage.getItem('votes') || '{}');
-    const currentVote = votesData[postId];  
+    const currentVote = votesData[postId];
     const postElement = document.querySelector(`[data-post-id="${postId}"]`);
 
-    // If the user clicks on the same type of vote, remove their vote
     if (currentVote === voteType) {
         this.removeVote(postId, voteType);
         votesData[postId] = null; // Explicitly set to null to indicate no vote
     } else {
-        // If the user switches their vote or votes for the first time
         if (currentVote) {
-            // Remove the previous vote first
             this.removeVote(postId, currentVote);
         }
-
-        // Apply the new vote
         this.updateVotes(postId, voteType === 'upvote' ? 1 : -1);
         votesData[postId] = voteType;
     }
@@ -229,29 +230,43 @@ PostManager.prototype.handleVote = function(postId, voteType) {
     this.updateVoteButtonStyles(postElement);
 };
 
+// Updating vote count
 PostManager.prototype.updateVotes = function(postId, voteChange) {
     const posts = this.getAllPosts();
     const post = posts.find(post => post.id === postId);
 
     if (post) {
-        post.votes += voteChange;  // Update the vote count by the voteChange
+        post.votes += voteChange; // Update the vote count
         localStorage.setItem('posts', JSON.stringify(posts));
-        this.loadAndRenderPosts(); // Re-render posts to reflect updated votes
+        this.loadAndRenderPosts(); // Re-render posts
     }
 };
 
+// Removing votes
 PostManager.prototype.removeVote = function(postId, voteType) {
     const votesData = JSON.parse(localStorage.getItem('votes') || '{}');
-    
-    // Set the vote to null instead of deleting
     votesData[postId] = null;
     localStorage.setItem('votes', JSON.stringify(votesData));
-
-    // Adjust the vote count to reflect the removal
-    const voteChange = (voteType === 'upvote') ? -1 : 1;
-    this.updateVotes(postId, voteChange);
+    this.loadAndRenderPosts(); // Re-render posts after vote removal
 };
 
+// Update vote button styles
+PostManager.prototype.updateVoteButtonStyles = function(postElement) {
+    const upvoteButton = postElement.querySelector('.upvote-btn');
+    const downvoteButton = postElement.querySelector('.downvote-btn');
+    const votes = postElement.querySelector('.vote-count').textContent;
+
+    upvoteButton.classList.remove('active');
+    downvoteButton.classList.remove('active');
+
+    if (votes > 0) {
+        upvoteButton.classList.add('active');
+    } else if (votes < 0) {
+        downvoteButton.classList.add('active');
+    }
+};
+
+// Initialize the PostManager when the page loads
 document.addEventListener('DOMContentLoaded', () => {
     new PostManager();
 });

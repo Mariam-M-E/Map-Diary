@@ -97,6 +97,15 @@ body, html {
     margin-top: 1rem;
 }
 
+.votes{
+    margin: 1rem 0;
+}
+.vote-count {
+    display: inline-block;
+    font-size: 18px;
+    margin: 0 5px;
+}
+
 .btn {
     background-color: rgb(159, 159, 180);
     color: white;
@@ -117,12 +126,54 @@ body, html {
 }
 
 
+.comments-section {
+    display: block;
+    margin-top: 20px; 
+    width: 100%;
+}
 
-.more-comments {
-    font-weight: bold;
-    color: #666;
-    margin-top: 1rem;
+.comment-input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    resize: none;
+}
+
+.add-comment-btn {
+    padding: 8px 15px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
     cursor: pointer;
+    border-radius: 5px;
+}
+
+.add-comment-btn:hover {
+    background-color: #45a049;
+}
+
+.comments-container {
+    margin-top: 10px;
+}
+
+.text-comments {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.text-comments img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.text-comments div {
+    font-size: 14px;
+    margin-left: 10px;
 }
 
 @media (max-width: 768px) {

@@ -8,7 +8,13 @@
             "timestamp": "2024-12-13T10:00:00Z",
             "page": "UAE",
             "votes": 200,
-            "comments": []
+            "comments": [
+                {
+                  "id": "comment_1",
+                  "text": "wow i really need to visit this place",
+                  "timestamp": "2024-12-13T12:00:00Z"
+                }
+            ]
         },
         {
             "id": "post_2",
